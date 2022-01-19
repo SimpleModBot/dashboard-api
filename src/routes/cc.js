@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 const cc = require('../models/cc.js');
 
-// Get all routes
+// Get all commands
 router.get('/', async (req, res) => {
-	const ccs = await cc.find();
+	const ccs = await cc.find({ Guild: req.query.Guild });
 
+	res.status(200);
 	res.json(ccs);
 });
 
@@ -14,6 +15,7 @@ router.post('/new', async (req, res) => {
 	const newcc = new cc(req.body);
 	const savedcc = await newcc.save();
 
+	res.status(200);
 	res.json(savedcc);
 });
 
@@ -21,6 +23,7 @@ router.post('/new', async (req, res) => {
 router.get('/get', async (req, res) => {
 	const q = await cc.findOne({ Guild: req.body.Guild, Command: req.body.Command });
 
+	res.status(200);
 	res.json(q);
 });
 
@@ -28,6 +31,7 @@ router.get('/get', async (req, res) => {
 router.delete('/delete', async (req, res) => {
 	const result = await cc.findOneAndDelete({ Guild: req.body.Guild, Command: req.body.Command });
 
+	res.status(200);
 	res.json(result);
 });
 
@@ -35,6 +39,7 @@ router.delete('/delete', async (req, res) => {
 router.patch('/update', async (req, res) => {
 	const q = await cc.updateOne({Guild: req.body.Guild, Command: req.body.Command }, {$set: req.body.new});
 
+	res.status(200);
 	res.json(q);
 });
 
