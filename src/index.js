@@ -4,6 +4,7 @@ function app() {
     const mongoose = require('mongoose');
     const bodyParser = require('body-parser');
     const axios = require('axios').default;
+    const cors = require('cors');
     require('dotenv').config();
 
     // App
@@ -22,9 +23,12 @@ function app() {
     db.once('open', () => console.log('Connected to MongoDB'));
 
     // Middleware
+    app.use(cors({ Origin: '*' }));
     app.use(bodyParser.json());
     const ccRoute = require('./routes/cc.js');
     app.use('/cc', ccRoute);
+    const guildRoute = require('./routes/guild.js');
+    app.use('/guild', guildRoute);
 
     // Listen to paths
     // Root path

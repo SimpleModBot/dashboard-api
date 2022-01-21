@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const guild = require('../models/guild.js');
+const tokens = require('../secrets/tokens.json');
 
 // Get all guilds
 // router.get('/', async (req, res) => {
@@ -19,9 +20,10 @@ const guild = require('../models/guild.js');
 
 // Get specific guild
 router.get('/get', async (req, res) => {
+    if (!tokens.valid.includes(req.body.Token)) return res.status(401).json('Unauthorized or invalid token');
+
     const q = await guild.findOne({
-        Guild: req.body.Guild,
-        Command: req.body.Command,
+        guildID: req.body.Guild,
     });
 
     res.status(200);
@@ -37,8 +39,10 @@ router.get('/get', async (req, res) => {
 
 // Update a guild
 router.patch('/update', async (req, res) => {
-    const q = await guild.updateOne(
-        { Guild: req.body.Guild },
+    if (!tokens.valid.includes(req.body.Token)) return res.status(401).json('Unauthorized or invalid token');
+
+    const q = await guild.findOneAndUpdate(
+        { guildID: req.body.Guild },
         { $set: req.body.new },
     );
 
