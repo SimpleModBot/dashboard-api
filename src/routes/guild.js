@@ -19,7 +19,7 @@ const tokens = require('../secrets/tokens.json');
 // });
 
 // Get specific guild
-router.get('/get', async (req, res) => {
+router.put('/get', async (req, res) => {
     if (!tokens.valid.includes(req.body.Token)) return res.status(401).json('Unauthorized or invalid token');
 
     const q = await guild.findOne({
