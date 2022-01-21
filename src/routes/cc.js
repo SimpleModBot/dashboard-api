@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const cc = require('../models/cc.js');
+const tokens = require('../secrets/tokens.json');
 
 // Get all commands
 router.get('/', async (req, res) => {
+    if (!tokens.valid.includes(req.body.Token)) return res.status(401).json('Unauthorized or invalid token');
+
 	const ccs = await cc.find({ Guild: req.query.Guild });
 
 	res.status(200);
@@ -12,6 +15,8 @@ router.get('/', async (req, res) => {
 
 // Create new cc
 router.post('/new', async (req, res) => {
+    if (!tokens.valid.includes(req.body.Token)) return res.status(401).json('Unauthorized or invalid token');
+
 	const newcc = new cc(req.body);
 	const savedcc = await newcc.save();
 
@@ -21,6 +26,8 @@ router.post('/new', async (req, res) => {
 
 // Get specific cc
 router.get('/get', async (req, res) => {
+    if (!tokens.valid.includes(req.body.Token)) return res.status(401).json('Unauthorized or invalid token');
+
 	const q = await cc.findOne({ Guild: req.body.Guild, Command: req.body.Command });
 
 	res.status(200);
@@ -29,6 +36,8 @@ router.get('/get', async (req, res) => {
 
 // Delete a cc
 router.delete('/delete', async (req, res) => {
+    if (!tokens.valid.includes(req.body.Token)) return res.status(401).json('Unauthorized or invalid token');
+
 	const result = await cc.findOneAndDelete({ Guild: req.body.Guild, Command: req.body.Command });
 
 	res.status(200);
@@ -37,6 +46,8 @@ router.delete('/delete', async (req, res) => {
 
 // Update a cc
 router.patch('/update', async (req, res) => {
+    if (!tokens.valid.includes(req.body.Token)) return res.status(401).json('Unauthorized or invalid token');
+
 	const q = await cc.updateOne({Guild: req.body.Guild, Command: req.body.Command }, {$set: req.body.new});
 
 	res.status(200);
