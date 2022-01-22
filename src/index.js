@@ -23,10 +23,12 @@ function app() {
     db.once('open', () => console.log('Connected to MongoDB'));
 
     // Middleware
-    app.use(cors({ Origin: '*' }));
+    app.use(cors());
     app.use(bodyParser.json());
+
     const ccRoute = require('./routes/cc.js');
     app.use('/cc', ccRoute);
+
     const guildRoute = require('./routes/guild.js');
     app.use('/guild', guildRoute);
 
