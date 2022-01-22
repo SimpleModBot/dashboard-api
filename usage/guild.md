@@ -21,6 +21,7 @@ If you are hosting this API publicly with a real domain I suggest using `HTTPS` 
 ```ts
     await axios({
         url: `http://localhost:${process.env.PORT || `3001`}/guild/get/`,
+        method: `put`,
         data: {
             Token: `TOKEN`,
             Guild: `GUILDID`,

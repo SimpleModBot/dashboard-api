@@ -19,6 +19,7 @@ Get all command data.
 ```ts
     await axios({
         url: `http://localhost:${process.env.PORT || `3001`}/cc/`,
+        method: `get`,
         data: {
             Token: `TOKEN`,
             Guild: `GUILDID`,
@@ -54,10 +55,11 @@ Get all command data.
 ```ts
     await axios({
         url: `http://localhost:${process.env.PORT || `3001`}/cc/get/`,
+        method: `put`,
         data: {
-        Token: `TOKEN`,
-        Guild: `GUILDID`,
-        Command: `COMMAND`,
+            Token: `TOKEN`,
+            Guild: `GUILDID`,
+            Command: `COMMAND`,
         },
     });
     

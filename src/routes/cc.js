@@ -4,7 +4,7 @@ const cc = require('../models/cc.js');
 const tokens = require('../secrets/tokens.json');
 
 // Get all commands
-router.get('/', async (req, res) => {
+router.put('/', async (req, res) => {
     if (!tokens.valid.includes(req.body.Token)) return res.status(401).json('Unauthorized or invalid token');
 
 	const ccs = await cc.find({ Guild: req.query.Guild });
@@ -25,7 +25,7 @@ router.post('/new', async (req, res) => {
 });
 
 // Get specific cc
-router.get('/get', async (req, res) => {
+router.put('/get', async (req, res) => {
     if (!tokens.valid.includes(req.body.Token)) return res.status(401).json('Unauthorized or invalid token');
 
 	const q = await cc.findOne({ Guild: req.body.Guild, Command: req.body.Command });
