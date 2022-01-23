@@ -7,7 +7,7 @@ const tokens = require('../secrets/tokens.json');
 router.put('/', async (req, res) => {
     if (!tokens.valid.includes(req.body.Token)) return res.status(401).json('Unauthorized or invalid token');
 
-	const ccs = await cc.find({ Guild: req.query.Guild });
+	const ccs = await cc.find({ Guild: req.body.Guild });
 
 	res.status(200);
 	res.json(ccs);
