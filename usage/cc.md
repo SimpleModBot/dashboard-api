@@ -127,6 +127,7 @@ Get all command data.
     * If invalid returns a 400 status code
     * If no authorization token returns a 401 status code
     * If not authorized to do this returns a 403 status code
+    * If already exists returns a 409 status code
     */
 ```
 

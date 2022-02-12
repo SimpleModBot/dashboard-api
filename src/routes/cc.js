@@ -17,6 +17,9 @@ router.put('/', async (req, res) => {
 router.post('/new', async (req, res) => {
     if (!tokens.valid.includes(req.body.Token)) return res.status(401).json('Unauthorized or invalid token');
 
+	const cc = await cc.findOne({ Guild: req.body.Guild, Command: req.body.Command });
+	if (cc) return res.status(409).json('Command already exists');
+
 	const newcc = new cc(req.body);
 	const savedcc = await newcc.save();
 
