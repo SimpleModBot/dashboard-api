@@ -20,14 +20,12 @@ const tokens = require('../secrets/tokens.json');
 
 // Get specific guild
 router.put('/get', async (req, res) => {
-    if (!tokens.valid.includes(req.body.Token)) return res.status(401).json('Unauthorized or invalid token');
+	if (!tokens.valid.includes(req.body.Token)) return res.status(401).json('Unauthorized or invalid token');
 
-    const q = await guild.findOne({
-        guildID: req.body.Guild,
-    });
+	const q = await guild.findOne({ guildID: req.body.Guild });
 
-    res.status(200);
-    res.json(q);
+	res.status(200);
+	res.json(q);
 });
 
 // Delete a guild
@@ -39,15 +37,12 @@ router.put('/get', async (req, res) => {
 
 // Update a guild
 router.patch('/update', async (req, res) => {
-    if (!tokens.valid.includes(req.body.Token)) return res.status(401).json('Unauthorized or invalid token');
+	if (!tokens.valid.includes(req.body.Token)) return res.status(401).json('Unauthorized or invalid token');
 
-    const q = await guild.findOneAndUpdate(
-        { guildID: req.body.Guild },
-        { $set: req.body.new },
-    );
+	const q = await guild.findOneAndUpdate({ guildID: req.body.Guild }, { $set: req.body.new });
 
-    res.status(200);
-    res.json(q);
+	res.status(200);
+	res.json(q);
 });
 
 // Get random guild
