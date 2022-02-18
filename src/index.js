@@ -12,7 +12,6 @@ function app() {
 
     // Database
     const dbOptions = {
-        useFindAndModify: false,
         useNewUrlParser: true,
         useUnifiedTopology: true,
         autoIndex: false,
