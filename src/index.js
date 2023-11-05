@@ -28,11 +28,11 @@ function app() {
 	});
 	app.use(bodyParser.json());
 
-	const ccRoute = require('./routes/cc.js');
-	app.use('/cc', ccRoute);
 
-	const guildRoute = require('./routes/guild.js');
-	app.use('/guild', guildRoute);
+	// Request paths
+	app.use('/cc', require('./routes/cc.js'));
+	app.use('/guild', require('./routes/guild.js'));
+
 
 	// Listen to paths
 	// Root path
